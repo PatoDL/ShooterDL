@@ -9,6 +9,7 @@ public class Pool
     GameObject prefab;
     public Vector3 position;
     Transform parent;
+    Quaternion rotation;
 
     public Pool(int amount, GameObject pf, Vector3 pos, Transform par)
     {
@@ -17,7 +18,6 @@ public class Pool
         prefab = pf;
         position = pos;
         parent = par;
-
         for(int i=0;i<amount;i++)
         {
             GameObject g = GameObject.Instantiate(pf, pos, pf.transform.rotation, par);
@@ -34,13 +34,13 @@ public class Pool
         {
             if(!SearchForActiveActor(ref toReturn))
             {
-                toReturn = GameObject.Instantiate(prefab, position, prefab.transform.rotation, parent);
+                toReturn = GameObject.Instantiate(prefab, position, rotation, parent);
                 pool.Add(toReturn);
             }
         }
         else
         {
-            toReturn = GameObject.Instantiate(prefab, position, prefab.transform.rotation, parent);
+            toReturn = GameObject.Instantiate(prefab, position, rotation, parent);
             pool.Add(toReturn);
         }
         return toReturn;
@@ -53,6 +53,7 @@ public class Pool
             if (!g.activeSelf)
             {
                 g.SetActive(true);
+                g.transform.rotation = rotation;
                 GameObject.Destroy(searched);
                 searched = null;
                 searched = g;
@@ -71,7 +72,18 @@ public class Pool
             {
                 actor.SetActive(false);
                 actor.transform.position = position;
-                actor.transform.rotation = prefab.transform.rotation;
+                actor.transform.rotation = rotation;
+            }
+        }
+    }
+
+    public void ResetPool()
+    {
+        foreach(GameObject g in pool)
+        {
+            if(g.activeSelf)
+            {
+                g.SetActive(false);
             }
         }
     }

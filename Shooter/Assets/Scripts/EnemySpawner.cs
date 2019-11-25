@@ -14,6 +14,8 @@ public class EnemySpawner : MonoBehaviour
     public float maxTime;
     public float timer;
 
+    public int score;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,13 @@ public class EnemySpawner : MonoBehaviour
         {
             spawnPoint[i] = spawnPoints.transform.GetChild(i).gameObject;
         }
+
+        UIGameController.Retry += RestartEnemies;
+    }
+
+    private void OnDestroy()
+    {
+        UIGameController.Retry -= RestartEnemies;
     }
 
     // Update is called once per frame
@@ -40,8 +49,17 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void ReturnToPool(GameObject enemy)
+    void ReturnToPool(GameObject enemy, int plusScore)
     {
         enemies.ReturnActorToPool(enemy);
+        score += plusScore;
+        if (score > 100)
+            GooglePlayManager.gpm.UnlockAchievement();
+    }
+
+    void RestartEnemies()
+    {
+        score = 0;
+        enemies.ResetPool();
     }
 }

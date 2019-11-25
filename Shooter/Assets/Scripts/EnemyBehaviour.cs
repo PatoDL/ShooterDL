@@ -7,7 +7,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float speed;
     public GameObject player;
     Vector3 direction;
-    public delegate void OnReturn(GameObject returnableEnemy);
+    public delegate void OnReturn(GameObject returnableEnemy, int score);
     public static OnReturn ReturnEnemy;
     Rigidbody rig;
     public bool nearPlayer;
@@ -37,7 +37,14 @@ public class EnemyBehaviour : MonoBehaviour
         Debug.Log(collision.transform.tag);
         if (collision.transform.tag == "Player" || collision.transform.tag == "Punch")
         {
-            ReturnEnemy(gameObject);
+            if (collision.transform.tag == "Player")
+            {
+                ReturnEnemy(gameObject, 0);
+            }
+            else
+            {
+                ReturnEnemy(gameObject, 10);
+            }
             nearPlayer = false;
         }
     }

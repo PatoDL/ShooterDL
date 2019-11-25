@@ -29,10 +29,20 @@ public class PunchBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag != "Punch")
+        if (collision.transform.tag != "Punch" && launched)
         {
-            Debug.Log("asdasdasd");
             launched = false;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            ReturnGO(this.gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.transform.tag == "Finish")
+        {
+            launched = false;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
             ReturnGO(this.gameObject);
         }
     }
