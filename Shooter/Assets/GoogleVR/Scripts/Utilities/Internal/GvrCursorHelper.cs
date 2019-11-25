@@ -54,8 +54,10 @@ namespace Gvr.Internal
 
         private static void UpdateCursorLockState()
         {
+#if UNITY_ANDROID && !UNITY_EDITOR
             bool active = cachedHeadEmulationActive || cachedControllerEmulationActive;
             Cursor.lockState = active ? CursorLockMode.Locked : CursorLockMode.None;
+#endif
         }
     }
 }

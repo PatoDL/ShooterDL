@@ -243,8 +243,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/PC-Pato/Desktop/ShooterDL.keystore
-  AndroidKeyaliasName: pato
+  AndroidKeystoreName: C:/Users/Administrador/Desktop/user.keystore
+  AndroidKeyaliasName: asdasd
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
   AndroidIsGame: 1

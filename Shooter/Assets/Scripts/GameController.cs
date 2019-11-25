@@ -47,8 +47,8 @@ public class GameController : MonoBehaviour
     void Update()
     {
 #if UNITY_STANDALONE || UNITY_EDITOR
-        yaw += speedH * Input.GetAxis("Mouse X")*Time.deltaTime;
-        pitch -= speedV * Input.GetAxis("Mouse Y")*Time.deltaTime;
+        yaw += speedH * Input.GetAxis("Mouse X")*Time.unscaledDeltaTime;
+        pitch -= speedV * Input.GetAxis("Mouse Y")* Time.unscaledDeltaTime;
 
         transform.eulerAngles = new Vector3(pitch, transform.eulerAngles.y, 0.0f);
 
